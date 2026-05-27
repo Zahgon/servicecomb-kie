@@ -18,69 +18,14 @@
 package v1
 
 import (
-	"net/http"
-	"strconv"
-	"time"
-
-	goRestful "github.com/emicklei/go-restful"
-	"github.com/go-chassis/cari/config"
-	"github.com/go-chassis/go-chassis/v2/pkg/runtime"
 	"github.com/go-chassis/go-chassis/v2/server/restful"
-	"github.com/go-chassis/openlog"
-
-	"github.com/apache/servicecomb-kie/pkg/common"
-	"github.com/apache/servicecomb-kie/pkg/model"
-	"github.com/apache/servicecomb-kie/server/datasource"
 )
 
 type AdminResource struct {
 }
 
 // URLPatterns defined config operations
-func (r *AdminResource) URLPatterns() []restful.Route {
-	return []restful.Route{
-		{
-			Method:       http.MethodGet,
-			Path:         "/v1/health",
-			ResourceFunc: r.HealthCheck,
-			FuncDesc:     "health check return version and revision",
-			Parameters:   []*restful.Parameters{},
-			Returns: []*restful.Returns{
-				{
-					Code:  http.StatusOK,
-					Model: model.DocHealthCheck{},
-				},
-			},
-			Consumes: []string{goRestful.MIME_JSON},
-			Produces: []string{goRestful.MIME_JSON},
-		},
-	}
-}
+func (r *AdminResource) URLPatterns() []restful.Route { _ = "STUB: not implemented"; return nil }
 
 // HealthCheck provider version info and time info
-func (r *AdminResource) HealthCheck(context *restful.Context) {
-	healthCheckMode := context.ReadQueryParameter(common.QueryParamMode)
-	if healthCheckMode == "liveness" {
-		return
-	}
-	domain := ReadDomain(context.Ctx)
-	resp := &model.DocHealthCheck{}
-	latest, err := datasource.GetBroker().GetRevisionDao().GetRevision(context.Ctx, domain)
-	if err != nil {
-		WriteErrResponse(context, config.ErrInternal, err.Error())
-		return
-	}
-	resp.Revision = strconv.FormatInt(latest, 10)
-	resp.Version = runtime.Version
-	resp.Timestamp = time.Now().Unix()
-	total, err := datasource.GetBroker().GetKVDao().Total(context.Ctx, "", domain)
-	if err != nil {
-		WriteErrResponse(context, config.ErrInternal, err.Error())
-		return
-	}
-	resp.Total = total
-	err = writeResponse(context, resp)
-	if err != nil {
-		openlog.Error(err.Error())
-	}
-}
+func (r *AdminResource) HealthCheck(context *restful.Context) { _ = "STUB: not implemented"; return }

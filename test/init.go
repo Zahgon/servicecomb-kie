@@ -18,9 +18,6 @@
 package test
 
 import (
-	"fmt"
-	"math/rand"
-
 	"github.com/apache/servicecomb-kie/server/db"
 	_ "github.com/go-chassis/cari/db/bootstrap"
 
@@ -106,14 +103,6 @@ func init() {
 	}
 }
 
-func randomListenAddress() string {
-	min := 4000
-	step := 1000
-	port := min + rand.Intn(step)
-	addr := fmt.Sprintf("127.0.0.1:%d", port)
-	return addr
-}
+func randomListenAddress() string { _ = "STUB: not implemented"; return "" }
 
-func IsEmbeddedetcdMode() bool {
-	return kind == "embedded_etcd"
-}
+func IsEmbeddedetcdMode() bool { _ = "STUB: not implemented"; return false }

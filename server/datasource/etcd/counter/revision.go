@@ -19,12 +19,6 @@ package counter
 
 import (
 	"context"
-
-	"github.com/apache/servicecomb-kie/server/datasource"
-	"github.com/apache/servicecomb-kie/server/datasource/etcd/key"
-	"github.com/go-chassis/cari/config"
-	"github.com/go-chassis/openlog"
-	"github.com/little-cui/etcdadpt"
 )
 
 const revision = "revision_counter"
@@ -35,26 +29,12 @@ type Dao struct {
 
 // GetRevision return current revision number
 func (s *Dao) GetRevision(ctx context.Context, domain string) (int64, error) {
-	kv, err := etcdadpt.Get(ctx, key.Counter(revision, domain))
-	if err != nil {
-		openlog.Error("get error: " + err.Error())
-		return 0, err
-	}
-	if kv == nil {
-		return 0, nil
-	}
-	return kv.Version, nil
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 // ApplyRevision increase revision number and return modified value
 func (s *Dao) ApplyRevision(ctx context.Context, domain string) (int64, error) {
-	resp, err := etcdadpt.PutBytesAndGet(ctx, key.Counter(revision, domain), nil)
-	if err != nil {
-		openlog.Error("put bytes error: " + err.Error())
-		return 0, config.NewError(config.ErrInternal, "apply revision failed")
-	}
-	if resp.Count == 0 {
-		return 0, datasource.ErrRevisionNotExist
-	}
-	return resp.Kvs[0].Version, nil
+	_ = "STUB: not implemented"
+	return 0, nil
 }

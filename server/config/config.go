@@ -17,38 +17,22 @@
 
 package config
 
-import (
-	"path/filepath"
-
-	"github.com/go-chassis/go-archaius"
-	"github.com/go-chassis/go-archaius/source/util"
-	"gopkg.in/yaml.v2"
-)
-
 // Configurations is kie config items
 var Configurations = &Config{}
 
 // Init initiate config files
-func Init() error {
-	if err := archaius.AddFile(Configurations.ConfigFile, archaius.WithFileHandler(util.UseFileNameAsKeyContentAsValue)); err != nil {
-		return err
-	}
-	_, filename := filepath.Split(Configurations.ConfigFile)
-	content := archaius.GetString(filename, "")
-	return yaml.Unmarshal([]byte(content), Configurations)
-}
+func Init() error { _ = "STUB: not implemented"; return nil }
 
 // GetDB return db configs
 func GetDB() DB {
-	return Configurations.DB
+	_ = "STUB: not implemented"
+	return *
+
+	// GetRBAC return rbac config
+	new(DB)
 }
 
-// GetRBAC return rbac config
-func GetRBAC() RBAC {
-	return Configurations.RBAC
-}
+func GetRBAC() RBAC { _ = "STUB: not implemented"; return *new(RBAC) }
 
 // GetSync return sync config
-func GetSync() Sync {
-	return Configurations.Sync
-}
+func GetSync() Sync { _ = "STUB: not implemented"; return *new(Sync) }

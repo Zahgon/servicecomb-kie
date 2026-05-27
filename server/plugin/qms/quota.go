@@ -18,12 +18,7 @@
 package qms
 
 import (
-	"context"
-
-	"github.com/apache/servicecomb-kie/server/datasource"
-	"github.com/go-chassis/go-archaius"
 	"github.com/go-chassis/go-chassis/v2/pkg/backends/quota"
-	"github.com/go-chassis/openlog"
 )
 
 // const
@@ -38,39 +33,41 @@ type BuildInManager struct {
 }
 
 func (m *BuildInManager) SetLimit(domain, project, resourceType string, limit int64) error {
-	panic("implement me")
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (m *BuildInManager) GetQuota(domain, project, resource string) (*quota.Quota, error) {
-	panic("implement me")
+	_ = "STUB: not implemented"
+	return nil,
+
+		// GetQuotas get usage and quota
+		nil
 }
 
-// GetQuotas get usage and quota
 func (m *BuildInManager) GetQuotas(domain, project string) ([]*quota.Quota, error) {
-	max := archaius.GetInt64(QuotaConfigKey, DefaultQuota)
-	total, err := datasource.GetBroker().GetKVDao().Total(context.TODO(), project, domain)
-	if err != nil {
-		openlog.Error("find quotas failed: " + err.Error())
-		return nil, err
-	}
-	return []*quota.Quota{{
-		Limit: max,
-		Used:  total,
-	}}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // IncreaseUsed no use
 func (m *BuildInManager) IncreaseUsed(domain, project, resource string, used int64) error {
+	_ = "STUB: not implemented"
+
+	// DecreaseUsed no use
 	return nil
 }
 
-// DecreaseUsed no use
 func (m *BuildInManager) DecreaseUsed(domain, project, resource string, used int64) error {
+	_ = "STUB: not implemented"
 	return nil
 }
+
 func newQMS(opts quota.Options) (quota.Manager, error) {
-	return &BuildInManager{}, nil
+	_ = "STUB: not implemented"
+	return *new(quota.Manager), nil
 }
+
 func init() {
 	quota.Install("build-in", newQMS)
 }

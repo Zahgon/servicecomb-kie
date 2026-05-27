@@ -13,23 +13,13 @@ type Semaphore struct {
 }
 
 // NewSemaphore accept concurrency number, not more than 65535
-func NewSemaphore(concurrency int) *Semaphore {
-	if concurrency >= math.MaxUint16 {
-		concurrency = MaxConcurrency
-	}
-	b := &Semaphore{
-		tickets: make(chan bool, concurrency),
-	}
-	for i := 0; i < concurrency; i++ {
-		b.tickets <- true
-	}
-	return b
-}
+func NewSemaphore(concurrency int) *Semaphore { _ = "STUB: not implemented"; return nil }
+
 func (b *Semaphore) Acquire() {
-	<-b.tickets
+	_ = "STUB: not implemented"
+
+	// Release return back signal
+	return
 }
 
-// Release return back signal
-func (b *Semaphore) Release() {
-	b.tickets <- true
-}
+func (b *Semaphore) Release() { _ = "STUB: not implemented"; return }

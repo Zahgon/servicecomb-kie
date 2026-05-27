@@ -20,38 +20,10 @@ package tlsutil
 import (
 	"crypto/tls"
 	"errors"
-	"os"
 
-	"github.com/apache/servicecomb-kie/pkg/cipherutil"
 	"github.com/apache/servicecomb-kie/server/config"
-	"github.com/go-chassis/foundation/stringutil"
-	"github.com/go-chassis/foundation/tlsutil"
-	"github.com/go-chassis/openlog"
 )
 
 var ErrRootCAMissing = errors.New("rootCAFile is empty in config file")
 
-func Config(c *config.TLS) (*tls.Config, error) {
-	var password string
-	if c.CertPwdFile != "" {
-		pwdBytes, err := os.ReadFile(c.CertPwdFile)
-		if err != nil {
-			openlog.Error("read cert password file failed: " + err.Error())
-			return nil, err
-		}
-		password = cipherutil.TryDecrypt(stringutil.Bytes2str(pwdBytes))
-	}
-	if c.RootCA == "" {
-		openlog.Error(ErrRootCAMissing.Error())
-		return nil, ErrRootCAMissing
-	}
-	opts := append(tlsutil.DefaultClientTLSOptions(),
-		tlsutil.WithVerifyPeer(c.VerifyPeer),
-		tlsutil.WithVerifyHostName(false),
-		tlsutil.WithKeyPass(password),
-		tlsutil.WithCA(c.RootCA),
-		tlsutil.WithCert(c.CertFile),
-		tlsutil.WithKey(c.KeyFile),
-	)
-	return tlsutil.GetClientTLSConfig(opts...)
-}
+func Config(c *config.TLS) (*tls.Config, error) { _ = "STUB: not implemented"; return nil, nil }

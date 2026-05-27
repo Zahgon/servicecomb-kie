@@ -17,47 +17,4 @@
 
 package server
 
-import (
-	chassis "github.com/go-chassis/go-chassis/v2"
-	"github.com/go-chassis/go-chassis/v2/core/common"
-	"github.com/go-chassis/openlog"
-
-	"github.com/apache/servicecomb-kie/pkg/validator"
-	"github.com/apache/servicecomb-kie/server/config"
-	"github.com/apache/servicecomb-kie/server/datasource"
-	"github.com/apache/servicecomb-kie/server/db"
-	"github.com/apache/servicecomb-kie/server/metrics"
-	"github.com/apache/servicecomb-kie/server/pubsub"
-	"github.com/apache/servicecomb-kie/server/rbac"
-	v1 "github.com/apache/servicecomb-kie/server/resource/v1"
-)
-
-func Run() {
-	chassis.RegisterSchema(common.ProtocolRest, &v1.KVResource{})
-	chassis.RegisterSchema(common.ProtocolRest, &v1.HistoryResource{})
-	chassis.RegisterSchema(common.ProtocolRest, &v1.AdminResource{})
-	if err := chassis.Init(); err != nil {
-		openlog.Fatal(err.Error())
-	}
-	if err := config.Init(); err != nil {
-		openlog.Fatal(err.Error())
-	}
-	if err := db.Init(config.GetDB()); err != nil {
-		openlog.Fatal(err.Error())
-	}
-	if err := datasource.Init(config.GetDB().Kind); err != nil {
-		openlog.Fatal(err.Error())
-	}
-	if err := metrics.InitMetric(); err != nil {
-		openlog.Fatal(err.Error())
-	}
-	if err := validator.Init(); err != nil {
-		openlog.Fatal("validate init failed: " + err.Error())
-	}
-	rbac.Init()
-	pubsub.Init()
-	pubsub.Start()
-	if err := chassis.Run(); err != nil {
-		openlog.Fatal("service exit: " + err.Error())
-	}
-}
+func Run() { _ = "STUB: not implemented"; return }

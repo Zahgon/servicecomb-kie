@@ -17,77 +17,16 @@
 
 package rbac
 
-import (
-	"net/http"
-	"os"
-	"path/filepath"
-	"strings"
-
-	"github.com/apache/servicecomb-kie/server/config"
-	"github.com/go-chassis/go-archaius"
-	"github.com/go-chassis/go-chassis/v2/middleware/jwt"
-	"github.com/go-chassis/go-chassis/v2/security/secret"
-	"github.com/go-chassis/go-chassis/v2/security/token"
-	"github.com/go-chassis/openlog"
-)
-
 const (
 	pubContentKey = "rbac.publicKey"
 	HeaderAuth    = "Authorization"
 )
 
 // Init initialize the rbac module
-func Init() {
-	if !config.GetRBAC().Enabled {
-		openlog.Info("rbac is disabled")
-		return
-	}
-
-	jwt.Use(&jwt.Auth{
-		MustAuth: func(req *http.Request) bool {
-			if !config.GetRBAC().Enabled {
-				return false
-			}
-
-			v := req.Header.Get(HeaderAuth)
-			if config.GetRBAC().AllowMissToken && v == "" {
-				return false
-			}
-
-			if strings.Contains(req.URL.Path, "/v1/health") {
-				return false
-			}
-			return true
-		},
-		Realm: "servicecomb-kie-realm",
-		SecretFunc: func(claims interface{}, method token.SigningMethod) (interface{}, error) {
-			p, err := secret.ParseRSAPPublicKey(PublicKey())
-			if err != nil {
-				openlog.Error("can not parse public key:" + err.Error())
-				return nil, err
-			}
-			return p, nil
-		},
-	})
-	loadPublicKey()
-	openlog.Info("rbac is enabled")
-}
+func Init() { _ = "STUB: not implemented"; return }
 
 // loadPublicKey read key to memory
-func loadPublicKey() {
-	pf := config.GetRBAC().PubKeyFile
-	content, err := os.ReadFile(filepath.Clean(pf))
-	if err != nil {
-		openlog.Fatal(err.Error())
-		return
-	}
-	err = archaius.Set(pubContentKey, string(content))
-	if err != nil {
-		openlog.Fatal(err.Error())
-	}
-}
+func loadPublicKey() { _ = "STUB: not implemented"; return }
 
 // PublicKey get public key to verify a token
-func PublicKey() string {
-	return archaius.GetString(pubContentKey, "")
-}
+func PublicKey() string { _ = "STUB: not implemented"; return "" }

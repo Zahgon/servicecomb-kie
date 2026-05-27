@@ -26,20 +26,8 @@ type ctxKey string
 const CtxSyncEnabled ctxKey = "sync"
 
 func NewContext(ctx context.Context, enabled bool) context.Context {
-	if ctx == nil {
-		ctx = context.Background()
-	}
-	return context.WithValue(ctx, CtxSyncEnabled, enabled)
+	_ = "STUB: not implemented"
+	return *new(context.Context)
 }
 
-func FromContext(ctx context.Context) bool {
-	if ctx == nil {
-		return false
-	}
-	val := ctx.Value(CtxSyncEnabled)
-	enabled, ok := val.(bool)
-	if !ok {
-		enabled = false
-	}
-	return enabled
-}
+func FromContext(ctx context.Context) bool { _ = "STUB: not implemented"; return false }

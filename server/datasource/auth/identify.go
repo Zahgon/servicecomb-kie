@@ -20,11 +20,8 @@ package auth
 import (
 	"context"
 	"errors"
-	"fmt"
 
-	"github.com/apache/servicecomb-kie/server/datasource"
 	rbacmodel "github.com/go-chassis/cari/rbac"
-	"github.com/go-chassis/openlog"
 )
 
 const (
@@ -34,39 +31,12 @@ const (
 var ErrNoRoles = errors.New("no role found in token")
 
 func Identify(ctx context.Context) (*rbacmodel.Account, error) {
-	claims, err := rbacmodel.FromContext(ctx)
-	if err != nil {
-		openlog.Error("get account from token failed", openlog.WithErr(err))
-		return nil, err
-	}
-	account, err := rbacmodel.GetAccount(claims)
-	if err != nil {
-		openlog.Error("get account from claims failed", openlog.WithErr(err))
-		return nil, err
-	}
-	if len(account.Roles) == 0 {
-		openlog.Error("no role found in token")
-		return nil, rbacmodel.NewError(rbacmodel.ErrNoPermission, "no role found in token")
-	}
-	err = accountExist(ctx, account.Name)
-	if err != nil {
-		return nil, err
-	}
-	return account, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func accountExist(ctx context.Context, user string) error {
+	_ = "STUB: not implemented"
 	// if root should pass, cause of root initialization
-	if user == RootName {
-		return nil
-	}
-	exist, err := datasource.GetBroker().GetRbacDao().AccountExist(ctx, user)
-	if err != nil {
-		return err
-	}
-	if !exist {
-		msg := fmt.Sprintf("account [%s] is deleted", user)
-		return rbacmodel.NewError(rbacmodel.ErrTokenOwnedAccountDeleted, msg)
-	}
 	return nil
 }

@@ -27,9 +27,11 @@ type Dao struct {
 }
 
 func (rm *Dao) GetRole(ctx context.Context, name string) (*crbac.Role, error) {
-	panic("implement me")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (rm *Dao) AccountExist(ctx context.Context, name string) (bool, error) {
-	panic("implement me")
+	_ = "STUB: not implemented"
+	return false, nil
 }

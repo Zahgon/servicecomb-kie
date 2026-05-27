@@ -18,17 +18,10 @@
 package pubsub
 
 import (
-	"encoding/json"
-	"fmt"
-	"net"
-	"strconv"
 	"sync"
 	"time"
 
-	"github.com/apache/servicecomb-kie/server/config"
-	"github.com/go-chassis/openlog"
 	"github.com/hashicorp/serf/cmd/serf/command/agent"
-	"github.com/hashicorp/serf/serf"
 )
 
 var once sync.Once
@@ -44,123 +37,37 @@ const (
 var topics sync.Map
 
 func Topics() *sync.Map {
-	return &topics
+	_ = "STUB: not implemented"
+
+	// Bus is message bug
+	return nil
 }
 
-// Bus is message bug
 type Bus struct {
 	agent *agent.Agent
 }
 
 // Init create serf agent
-func Init() {
-	once.Do(func() {
-		ac := agent.DefaultConfig()
-		sc := serf.DefaultConfig()
-		scmc := sc.MemberlistConfig
-		listenPeerAddr := config.Configurations.ListenPeerAddr
-		if listenPeerAddr != "" {
-			ac.BindAddr = listenPeerAddr
-			scmc.BindAddr, scmc.BindPort = splitHostPort(listenPeerAddr, scmc.BindAddr, scmc.BindPort)
-		}
-		advertiseAddr := config.Configurations.AdvertiseAddr
-		if advertiseAddr != "" {
-			ac.AdvertiseAddr = advertiseAddr
-			scmc.AdvertiseAddr, scmc.AdvertisePort = splitHostPort(advertiseAddr, scmc.AdvertiseAddr, scmc.AdvertisePort)
-		}
-		if config.Configurations.NodeName != "" {
-			sc.NodeName = config.Configurations.NodeName
-		}
-		ac.UserEventSizeLimit = 512
-		a, err := agent.Create(ac, sc, nil)
-		if err != nil {
-			openlog.Fatal("can not sync key value change events to other kie nodes:" + err.Error())
-		}
-		bus = &Bus{
-			agent: a,
-		}
-	})
-}
+func Init() { _ = "STUB: not implemented"; return }
 
 // splitHostPort split input string to host port
 func splitHostPort(advertiseAddr string, defaultHost string, defaultPort int) (string, int) {
-	if len(advertiseAddr) == 0 {
-		return defaultHost, defaultPort
-	}
-	host, port, err := net.SplitHostPort(advertiseAddr)
-	if err != nil {
-		openlog.Fatal(fmt.Sprintf("split string[%s] to host:port failed", advertiseAddr))
-	}
-	p, err := strconv.Atoi(port)
-	if err != nil {
-		openlog.Fatal(fmt.Sprintf("invalid port in string[%s]", advertiseAddr))
-	}
-	return host, p
+	_ = "STUB: not implemented"
+	return "", 0
 }
 
 // Start start serf agent
-func Start() {
-	err := bus.agent.Start()
-	if err != nil {
-		openlog.Fatal("can not sync key value change events to other kie nodes" + err.Error())
-	}
-	openlog.Info("kie message bus started")
-	eh := &ClusterEventHandler{}
-	bus.agent.RegisterEventHandler(eh)
+func Start() { _ = "STUB: not implemented"; return }
 
-	if config.Configurations.PeerAddr != "" {
-		err := join([]string{config.Configurations.PeerAddr})
-		if err != nil {
-			openlog.Fatal("lost event message")
-		} else {
-			openlog.Info("join kie node:" + config.Configurations.PeerAddr)
-		}
-	}
-}
-func join(addresses []string) error {
-	_, err := bus.agent.Join(addresses, false)
-	if err != nil {
-		return err
-	}
-	return nil
-}
+func join(addresses []string) error { _ = "STUB: not implemented"; return nil }
 
 // Publish send event
-func Publish(event *KVChangeEvent) error {
-	b, err := json.Marshal(event)
-	if err != nil {
-		return err
-	}
-	return bus.agent.UserEvent(EventKVChange, b, true)
-
-}
+func Publish(event *KVChangeEvent) error { _ = "STUB: not implemented"; return nil }
 
 // AddObserver observe key changes by (key or labels) or (key and labels)
 func AddObserver(o *Observer, topic *Topic) (string, error) {
-	t, err := topic.Encode()
-	if err != nil {
-		return "", err
-	}
-	observers, ok := topics.Load(t)
-	if !ok {
-		var observers = &sync.Map{}
-		observers.Store(o.UUID, o)
-		topics.Store(t, observers)
-		openlog.Info("new topic:" + t)
-		return t, nil
-	}
-	m := observers.(*sync.Map)
-	m.Store(o.UUID, o)
-	openlog.Debug("add new observer for topic:" + t)
-	return t, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
-func RemoveObserver(uuid string, topic *Topic) {
-	t, err := topic.Encode()
-	if err != nil {
-		openlog.Error(err.Error())
-	}
-	observers, _ := topics.Load(t)
-	m := observers.(*sync.Map)
-	m.Delete(uuid)
-}
+func RemoveObserver(uuid string, topic *Topic) { _ = "STUB: not implemented"; return }

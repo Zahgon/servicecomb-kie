@@ -19,11 +19,6 @@ package etcd
 
 import (
 	"github.com/apache/servicecomb-kie/server/datasource"
-	"github.com/apache/servicecomb-kie/server/datasource/etcd/counter"
-	"github.com/apache/servicecomb-kie/server/datasource/etcd/history"
-	"github.com/apache/servicecomb-kie/server/datasource/etcd/kv"
-	"github.com/apache/servicecomb-kie/server/datasource/etcd/rbac"
-	"github.com/apache/servicecomb-kie/server/datasource/etcd/track"
 	rbacdao "github.com/apache/servicecomb-kie/server/datasource/rbac"
 )
 
@@ -31,24 +26,31 @@ type Broker struct {
 }
 
 func NewFrom(c *datasource.Config) (datasource.Broker, error) {
-	kv.Init()
-	return &Broker{}, nil
+	_ = "STUB: not implemented"
+	return *new(datasource.Broker), nil
 }
+
 func (*Broker) GetRevisionDao() datasource.RevisionDao {
-	return &counter.Dao{}
+	_ = "STUB: not implemented"
+	return *new(datasource.RevisionDao)
 }
+
 func (*Broker) GetKVDao() datasource.KVDao {
-	return &kv.Dao{}
+	_ = "STUB: not implemented"
+	return *new(datasource.KVDao)
 }
+
 func (*Broker) GetHistoryDao() datasource.HistoryDao {
-	return &history.Dao{}
+	_ = "STUB: not implemented"
+	return *new(datasource.HistoryDao)
 }
+
 func (*Broker) GetTrackDao() datasource.TrackDao {
-	return &track.Dao{}
+	_ = "STUB: not implemented"
+	return *new(datasource.TrackDao)
 }
-func (*Broker) GetRbacDao() rbacdao.Dao {
-	return &rbac.Dao{}
-}
+
+func (*Broker) GetRbacDao() rbacdao.Dao { _ = "STUB: not implemented"; return *new(rbacdao.Dao) }
 
 func init() {
 	datasource.RegisterPlugin("etcd", NewFrom)

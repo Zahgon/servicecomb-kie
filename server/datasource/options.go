@@ -27,28 +27,15 @@ type Config struct {
 }
 
 // NewDefaultFindOpts return default options
-func NewDefaultFindOpts() FindOptions {
-	return FindOptions{
-		Timeout: DefaultTimeout,
-	}
-}
+func NewDefaultFindOpts() FindOptions { _ = "STUB: not implemented"; return *new(FindOptions) }
 
 // NewDefaultWriteOptions return default options
-func NewDefaultWriteOptions() WriteOptions {
-	return WriteOptions{
-		SyncEnable: false,
-	}
-}
+func NewDefaultWriteOptions() WriteOptions { _ = "STUB: not implemented"; return *new(WriteOptions) }
 
 // NewWriteOptions return options with write option
 func NewWriteOptions(option ...WriteOption) WriteOptions {
-	opt := WriteOptions{
-		SyncEnable: false,
-	}
-	for _, op := range option {
-		op(&opt)
-	}
-	return opt
+	_ = "STUB: not implemented"
+	return *new(WriteOptions)
 }
 
 // WriteOptions is option for create ,update and delete kv
@@ -82,85 +69,40 @@ type WriteOption func(*WriteOptions)
 type FindOption func(*FindOptions)
 
 // WithSync indicates that the synchronization function is on
-func WithSync(enabled bool) WriteOption {
-	return func(o *WriteOptions) {
-		o.SyncEnable = enabled
-	}
-}
+func WithSync(enabled bool) WriteOption { _ = "STUB: not implemented"; return *new(WriteOption) }
 
 // WithCaseSensitive tell model service whether to match case of letters or not.
-func WithCaseSensitive() FindOption {
-	return func(o *FindOptions) {
-		o.CaseSensitive = true
-	}
-}
+func WithCaseSensitive() FindOption { _ = "STUB: not implemented"; return *new(FindOption) }
 
 // WithExactLabels tell model service to return only one kv matches the labels
-func WithExactLabels() FindOption {
-	return func(o *FindOptions) {
-		o.ExactLabels = true
-	}
-}
+func WithExactLabels() FindOption { _ = "STUB: not implemented"; return *new(FindOption) }
 
 // WithID find by kvID
-func WithID(id string) FindOption {
-	return func(o *FindOptions) {
-		o.ID = id
-	}
-}
+func WithID(id string) FindOption { _ = "STUB: not implemented"; return *new(FindOption) }
 
 // WithKey find by key
-func WithKey(key string) FindOption {
-	return func(o *FindOptions) {
-		o.Key = key
-	}
-}
+func WithKey(key string) FindOption { _ = "STUB: not implemented"; return *new(FindOption) }
 
 // WithValue find by value
-func WithValue(value string) FindOption {
-	return func(o *FindOptions) {
-		o.Value = value
-	}
-}
+func WithValue(value string) FindOption { _ = "STUB: not implemented"; return *new(FindOption) }
 
 // WithStatus enabled/disabled
-func WithStatus(status string) FindOption {
-	return func(o *FindOptions) {
-		o.Status = status
-	}
-}
+func WithStatus(status string) FindOption { _ = "STUB: not implemented"; return *new(FindOption) }
 
 // WithTimeout will return err if execution take too long
-func WithTimeout(d time.Duration) FindOption {
-	return func(o *FindOptions) {
-		o.Timeout = d
-	}
-}
+func WithTimeout(d time.Duration) FindOption { _ = "STUB: not implemented"; return *new(FindOption) }
 
 // WithLabels find kv by labels
 func WithLabels(labels map[string]string) FindOption {
-	return func(o *FindOptions) {
-		o.Labels = labels
-	}
+	_ = "STUB: not implemented"
+	return *new(FindOption)
 }
 
 // WithLabelFormat find kv by label string
-func WithLabelFormat(label string) FindOption {
-	return func(o *FindOptions) {
-		o.LabelFormat = label
-	}
-}
+func WithLabelFormat(label string) FindOption { _ = "STUB: not implemented"; return *new(FindOption) }
 
 // WithLimit tells service paging limit
-func WithLimit(l int64) FindOption {
-	return func(o *FindOptions) {
-		o.Limit = l
-	}
-}
+func WithLimit(l int64) FindOption { _ = "STUB: not implemented"; return *new(FindOption) }
 
 // WithOffset tells service paging offset
-func WithOffset(os int64) FindOption {
-	return func(o *FindOptions) {
-		o.Offset = os
-	}
-}
+func WithOffset(os int64) FindOption { _ = "STUB: not implemented"; return *new(FindOption) }

@@ -20,24 +20,11 @@ package auth
 import "github.com/apache/servicecomb-kie/pkg/model"
 
 func FilterKVs(kvs []*model.KVDoc, labelsList []map[string]string) []*model.KVDoc {
-	var permKVs = make([]*model.KVDoc, 0, len(kvs))
-	for _, kv := range kvs {
-		for _, labels := range labelsList {
-			if !matchOne(kv, labels) {
-				continue
-			}
-			permKVs = append(permKVs, kv)
-			break
-		}
-	}
-	return permKVs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func matchOne(kv *model.KVDoc, labels map[string]string) bool {
-	for lk, lv := range labels {
-		if v := kv.Labels[lk]; v != lv {
-			return false
-		}
-	}
-	return true
+	_ = "STUB: not implemented"
+	return false
 }

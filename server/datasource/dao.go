@@ -21,10 +21,8 @@ package datasource
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/apache/servicecomb-kie/server/datasource/rbac"
-	"github.com/go-chassis/openlog"
 
 	"github.com/apache/servicecomb-kie/pkg/model"
 )
@@ -53,10 +51,12 @@ const (
 type New func(c *Config) (Broker, error)
 
 func RegisterPlugin(name string, f New) {
-	plugins[name] = f
+	_ = "STUB: not implemented"
+
+	// Broker avoid directly depend on one kind of persistence solution
+	return
 }
 
-// Broker avoid directly depend on one kind of persistence solution
 type Broker interface {
 	GetRevisionDao() RevisionDao
 	GetHistoryDao() HistoryDao
@@ -66,10 +66,12 @@ type Broker interface {
 }
 
 func GetBroker() Broker {
-	return b
+	_ = "STUB: not implemented"
+
+	// KVDao provide api of KV entity
+	return *new(Broker)
 }
 
-// KVDao provide api of KV entity
 type KVDao interface {
 	// Create Update List are usually for admin console
 	Create(ctx context.Context, kv *model.KVDoc, options ...WriteOption) (*model.KVDoc, error)
@@ -117,28 +119,10 @@ type ViewDao interface {
 	GetContent(ctx context.Context, id, domain, project string, options ...FindOption) ([]*model.KVResponse, error)
 }
 
-func Init(kind string) error {
-	var err error
-	f, ok := plugins[kind]
-	if !ok {
-		return fmt.Errorf("do not support '%s'", kind)
-	}
-	dbc := &Config{}
-	if b, err = f(dbc); err != nil {
-		return err
-	}
-	openlog.Info(fmt.Sprintf("use %s as storage", kind))
-	return nil
-}
+func Init(kind string) error { _ = "STUB: not implemented"; return nil }
 
 // ClearPart remove domain and project of kv
-func ClearPart(kv *model.KVDoc) {
-	kv.Domain = ""
-	kv.Project = ""
-	kv.LabelFormat = ""
-}
+func ClearPart(kv *model.KVDoc) { _ = "STUB: not implemented"; return }
 
 // TombstoneID return tombstone's resourceID, using key and labelFormat as resourceID
-func TombstoneID(kv *model.KVDoc) string {
-	return kv.Key + "/" + kv.LabelFormat
-}
+func TombstoneID(kv *model.KVDoc) string { _ = "STUB: not implemented"; return "" }

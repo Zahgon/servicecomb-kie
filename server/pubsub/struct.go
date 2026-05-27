@@ -17,16 +17,6 @@
 
 package pubsub
 
-import (
-	"encoding/json"
-	"errors"
-	"strings"
-
-	"github.com/apache/servicecomb-kie/pkg/common"
-	"github.com/apache/servicecomb-kie/pkg/stringutil"
-	"github.com/apache/servicecomb-kie/pkg/util"
-)
-
 // const
 const (
 	ActionPut    = "put"
@@ -42,15 +32,12 @@ type KVChangeEvent struct {
 	Project  string
 }
 
-func (e *KVChangeEvent) String() string {
-	return strings.Join([]string{e.Key, e.Action, stringutil.FormatMap(e.Labels), e.DomainID, e.Project}, ";;")
-}
+func (e *KVChangeEvent) String() string { _ = "STUB: not implemented"; return "" }
 
 // NewKVChangeEvent create a struct base on event payload
 func NewKVChangeEvent(payload []byte) (*KVChangeEvent, error) {
-	ke := &KVChangeEvent{}
-	err := json.Unmarshal(payload, ke)
-	return ke, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Topic can be subscribe
@@ -62,39 +49,10 @@ type Topic struct {
 	MatchType    string            `json:"match,omitempty"`
 }
 
-func (t *Topic) Encode() (string, error) {
-	t.LabelsFormat = stringutil.FormatMap(t.Labels)
-	b, err := json.Marshal(t)
-	if err != nil {
-		return "", err
-	}
-	return string(b), nil
-}
+func (t *Topic) Encode() (string, error) { _ = "STUB: not implemented"; return "", nil }
 
 // ParseTopic parse topic string to topic struct
-func ParseTopic(s string) (*Topic, error) {
-	t := &Topic{
-		Labels: make(map[string]string),
-	}
-	err := json.Unmarshal([]byte(s), t)
-	if err != nil {
-		return nil, err
-	}
-	if t.LabelsFormat == stringutil.LabelNone {
-		return t, nil
-	}
-	ls := strings.Split(t.LabelsFormat, "::")
-	if len(ls) != 0 {
-		for _, l := range ls {
-			s := strings.Split(l, "=")
-			if len(s) != 2 {
-				return nil, errors.New("invalid label:" + l)
-			}
-			t.Labels[s[0]] = s[1]
-		}
-	}
-	return t, err
-}
+func ParseTopic(s string) (*Topic, error) { _ = "STUB: not implemented"; return nil, nil }
 
 // Match compare event with topic
 // If the match type is set to exact in long pulling request, only update request with exactly
@@ -102,24 +60,7 @@ func ParseTopic(s string) (*Topic, error) {
 //
 // If the match type is not set, it will be matched when pulling request labels is equal to
 // update request labels or a subset of it.
-func (t *Topic) Match(event *KVChangeEvent) bool {
-	match := false
-	if t.MatchType == common.PatternExact {
-		if !util.IsEquivalentLabel(t.Labels, event.Labels) {
-			return false
-		}
-	}
-	if len(t.Labels) == 0 {
-		return true
-	}
-	for k, v := range t.Labels {
-		if event.Labels[k] != v {
-			return false
-		}
-		match = true
-	}
-	return match
-}
+func (t *Topic) Match(event *KVChangeEvent) bool { _ = "STUB: not implemented"; return false }
 
 // Observer represents a client polling request
 type Observer struct {

@@ -17,11 +17,6 @@
 
 package key
 
-import (
-	"strconv"
-	"strings"
-)
-
 const (
 	split      = "/"
 	keyKV      = "kvs"
@@ -33,51 +28,36 @@ const (
 	tombstone  = "tombstone"
 )
 
-func getSyncRootKey() string {
-	return split + syncer + split + task
-}
+func getSyncRootKey() string { _ = "STUB: not implemented"; return "" }
 
-func getTombstoneRootKey() string {
-	return split + tombstone
-}
+func getTombstoneRootKey() string { _ = "STUB: not implemented"; return "" }
 
 func TaskKey(domain, project, taskID string, timestamp int64) string {
-	strTimestamp := strconv.FormatInt(timestamp, 10)
-	return strings.Join([]string{getSyncRootKey(), domain, project, strTimestamp, taskID}, split)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 func TombstoneKey(domain, project, resourceType, resourceID string) string {
-	return strings.Join([]string{getTombstoneRootKey(), domain, project, resourceType, resourceID}, split)
+	_ = "STUB: not implemented"
+	return ""
 }
 
-func KV(domain, project, kvID string) string {
-	return strings.Join([]string{keyKV, domain, project, kvID}, split)
-}
+func KV(domain, project, kvID string) string { _ = "STUB: not implemented"; return "" }
 
-func KVList(domain, project string) string {
-	if len(project) == 0 {
-		return strings.Join([]string{keyKV, domain, ""}, split)
-	}
-	return strings.Join([]string{keyKV, domain, project, ""}, split)
-}
+func KVList(domain, project string) string { _ = "STUB: not implemented"; return "" }
 
-func Counter(name, domain string) string {
-	return strings.Join([]string{keyCounter, domain, name}, split)
-}
+func Counter(name, domain string) string { _ = "STUB: not implemented"; return "" }
 
 func His(domain, project, kvID string, updateRevision int64) string {
-	return strings.Join([]string{keyHistory, domain, project, kvID,
-		strconv.FormatInt(updateRevision, 10)}, split)
+	_ = "STUB: not implemented"
+	return ""
 }
 
-func HisList(domain, project, kvID string) string {
-	return strings.Join([]string{keyHistory, domain, project, kvID, ""}, split)
-}
+func HisList(domain, project, kvID string) string { _ = "STUB: not implemented"; return "" }
 
 func Track(domain, project, revision, sessionID string) string {
-	return strings.Join([]string{keyTrack, domain, project, revision, sessionID}, split)
+	_ = "STUB: not implemented"
+	return ""
 }
 
-func TrackList(domain, project string) string {
-	return strings.Join([]string{keyTrack, domain, project, ""}, split)
-}
+func TrackList(domain, project string) string { _ = "STUB: not implemented"; return "" }

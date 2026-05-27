@@ -18,15 +18,9 @@
 package db
 
 import (
-	"crypto/tls"
-	"errors"
 	"time"
 
 	"github.com/apache/servicecomb-kie/server/config"
-	"github.com/apache/servicecomb-kie/server/config/tlsutil"
-	"github.com/go-chassis/cari/db"
-	dconfig "github.com/go-chassis/cari/db/config"
-	"github.com/go-chassis/openlog"
 )
 
 const (
@@ -34,37 +28,4 @@ const (
 	DefaultKind    = "mongo"
 )
 
-func Init(c config.DB) error {
-	var err error
-	if c.Kind == "" {
-		c.Kind = DefaultKind
-	}
-	var timeout time.Duration
-	if c.Timeout != "" {
-		timeout, err = time.ParseDuration(c.Timeout)
-		if err != nil {
-			openlog.Fatal(err.Error())
-			return errors.New("timeout setting invalid:" + c.Timeout)
-		}
-	}
-	if timeout == 0 {
-		timeout = DefaultTimeout
-	}
-	var tlsConfig *tls.Config
-	if c.SSLEnabled {
-		var err error
-		tlsConfig, err = tlsutil.Config(&c.TLS)
-		if err != nil {
-			openlog.Fatal(err.Error())
-			return errors.New("tls setting invalid:" + err.Error())
-		}
-	}
-	return db.Init(&dconfig.Config{
-		Kind:       c.Kind,
-		URI:        c.URI,
-		PoolSize:   c.PoolSize,
-		SSLEnabled: c.SSLEnabled,
-		TLSConfig:  tlsConfig,
-		Timeout:    timeout,
-	})
-}
+func Init(c config.DB) error { _ = "STUB: not implemented"; return nil }

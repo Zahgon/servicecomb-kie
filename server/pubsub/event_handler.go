@@ -18,40 +18,19 @@
 package pubsub
 
 import (
-	"strings"
-
-	"github.com/go-chassis/openlog"
 	"github.com/hashicorp/serf/cmd/serf/command/agent"
 	"github.com/hashicorp/serf/serf"
 )
 
 var handlers = make(map[string]agent.EventHandler)
 
-func RegisterHandler(typ string, h agent.EventHandler) {
-	handlers[typ] = h
-	openlog.Info("register handler for:" + typ)
-}
+func RegisterHandler(typ string, h agent.EventHandler) { _ = "STUB: not implemented"; return }
 
 // ClusterEventHandler handler serf custom event, it is singleton
 type ClusterEventHandler struct {
 }
 
 // HandleEvent send event to subscribers
-func (h *ClusterEventHandler) HandleEvent(e serf.Event) {
-	openlog.Debug("receive event:" + e.EventType().String())
-	switch e.EventType().String() {
-	case "user":
-		h.DispatchEvent(e)
-	}
+func (h *ClusterEventHandler) HandleEvent(e serf.Event) { _ = "STUB: not implemented"; return }
 
-}
-
-func (h *ClusterEventHandler) DispatchEvent(e serf.Event) {
-	typ := strings.Replace(e.String(), "user-event: ", "", 1)
-	eh, ok := handlers[typ]
-	if !ok {
-		openlog.Warn("can not handle:" + typ)
-		return
-	}
-	eh.HandleEvent(e)
-}
+func (h *ClusterEventHandler) DispatchEvent(e serf.Event) { _ = "STUB: not implemented"; return }

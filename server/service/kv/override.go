@@ -31,9 +31,11 @@ type OverrideStrategy interface {
 }
 
 func RegisterStrategy(override string, strategy OverrideStrategy) {
-	strategyMap[override] = strategy
+	_ = "STUB: not implemented"
+	return
 }
 
 func SelectStrategy(override string) OverrideStrategy {
-	return strategyMap[override]
+	_ = "STUB: not implemented"
+	return *new(OverrideStrategy)
 }

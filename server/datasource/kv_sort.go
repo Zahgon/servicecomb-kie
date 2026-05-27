@@ -18,8 +18,6 @@
 package datasource
 
 import (
-	"sort"
-
 	"github.com/apache/servicecomb-kie/pkg/model"
 )
 
@@ -27,22 +25,10 @@ type KVDocSorter struct {
 	KVs []*model.KVDoc
 }
 
-func (k *KVDocSorter) Len() int {
-	return len(k.KVs)
-}
+func (k *KVDocSorter) Len() int { _ = "STUB: not implemented"; return 0 }
 
-func (k *KVDocSorter) Less(i, j int) bool {
-	if k.KVs[i].Priority == k.KVs[j].Priority {
-		return k.KVs[i].UpdateRevision > k.KVs[j].UpdateRevision
-	}
-	return k.KVs[i].Priority > k.KVs[j].Priority
-}
+func (k *KVDocSorter) Less(i, j int) bool { _ = "STUB: not implemented"; return false }
 
-func (k *KVDocSorter) Swap(i, j int) {
-	k.KVs[i], k.KVs[j] = k.KVs[j], k.KVs[i]
-}
+func (k *KVDocSorter) Swap(i, j int) { _ = "STUB: not implemented"; return }
 
-func ReverseByPriorityAndUpdateRev(kvs []*model.KVDoc) {
-	sorter := &KVDocSorter{KVs: kvs}
-	sort.Sort(sorter)
-}
+func ReverseByPriorityAndUpdateRev(kvs []*model.KVDoc) { _ = "STUB: not implemented"; return }

@@ -17,56 +17,9 @@
 
 package command
 
-import (
-	"github.com/apache/servicecomb-kie/server/config"
-	"github.com/urfave/cli"
-)
-
 const (
 	defaultConfigFile = "/etc/servicecomb-kie/kie-conf.yaml"
 )
 
 // parseConfigFromCmd
-func ParseConfig(args []string) (err error) {
-	app := cli.NewApp()
-	app.HideVersion = true
-	app.Usage = "servicecomb-kie server cmd line."
-	app.Flags = []cli.Flag{
-		cli.StringFlag{
-			Name:        "config",
-			Usage:       "config file, example: --config=kie-conf.yaml",
-			Destination: &config.Configurations.ConfigFile,
-			Value:       defaultConfigFile,
-		},
-		cli.StringFlag{
-			Name:        "name",
-			Usage:       "node name, example: --name=kie0",
-			Destination: &config.Configurations.NodeName,
-			EnvVar:      "NODE_NAME",
-		},
-		cli.StringFlag{
-			Name:        "peer-addr",
-			Usage:       "kie use this ip port to join a kie cluster, example: --peer-addr=10.1.1.10:5000",
-			Destination: &config.Configurations.PeerAddr,
-			EnvVar:      "PEER_ADDR",
-		},
-		cli.StringFlag{
-			Name:        "listen-peer-addr",
-			Usage:       "listen on ip port, kie receive events example: --listen-peer-addr=10.1.1.10:5000",
-			Destination: &config.Configurations.ListenPeerAddr,
-			EnvVar:      "LISTEN_PEER_ADDR",
-		},
-		cli.StringFlag{
-			Name:        "advertise-addr",
-			Usage:       "advertise host port to other members, example: --advertise-addr=kie.svc.cluster.local:5000",
-			Destination: &config.Configurations.AdvertiseAddr,
-			EnvVar:      "ADVERTISE_ADDR",
-		},
-	}
-	app.Action = func(c *cli.Context) error {
-		return nil
-	}
-
-	err = app.Run(args)
-	return
-}
+func ParseConfig(args []string) (err error) { _ = "STUB: not implemented"; return nil }

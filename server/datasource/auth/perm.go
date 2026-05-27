@@ -19,42 +19,17 @@ package auth
 
 import (
 	"context"
-
-	"github.com/apache/servicecomb-kie/server/config"
-	rbacmodel "github.com/go-chassis/cari/rbac"
 )
 
 // CheckPerm return the resource scope ...
 func CheckPerm(ctx context.Context, targetResource *ResourceScope) ([]map[string]string, error) {
-	account, err := Identify(ctx)
-	if err != nil {
-		return nil, err
-	}
-	hasAdmin, normalRoles := filterRoles(account.Roles)
-	if hasAdmin {
-		return nil, nil
-	}
-	return Allow(ctx, normalRoles, targetResource)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func filterRoles(roleList []string) (hasAdmin bool, normalRoles []string) {
-	for _, r := range roleList {
-		if r == rbacmodel.RoleAdmin {
-			hasAdmin = true
-			return
-		}
-		normalRoles = append(normalRoles, r)
-	}
-	return
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
-func CheckEnable(ctx context.Context) bool {
-	if !config.GetRBAC().Enabled {
-		return false
-	}
-	if !config.GetRBAC().AllowMissToken {
-		return true
-	}
-	claims, _ := rbacmodel.FromContext(ctx)
-	return claims != nil
-}
+func CheckEnable(ctx context.Context) bool { _ = "STUB: not implemented"; return false }

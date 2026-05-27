@@ -17,34 +17,10 @@
 
 package stringutil
 
-import (
-	"sort"
-	"strings"
-)
-
 const (
 	// LabelNone is the format string when the map is none
 	LabelNone = "none"
 )
 
 // FormatMap format map to string
-func FormatMap(m map[string]string) string {
-	if len(m) == 0 {
-		return LabelNone
-	}
-	sb := strings.Builder{}
-	s := make([]string, 0, len(m))
-	for k := range m {
-		s = append(s, k)
-	}
-	sort.Strings(s)
-	for i, k := range s {
-		sb.WriteString(k)
-		sb.WriteString("=")
-		sb.WriteString(m[k])
-		if i != (len(s) - 1) {
-			sb.WriteString("::")
-		}
-	}
-	return sb.String()
-}
+func FormatMap(m map[string]string) string { _ = "STUB: not implemented"; return "" }

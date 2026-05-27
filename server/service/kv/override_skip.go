@@ -19,11 +19,8 @@ package kv
 
 import (
 	"context"
-	"fmt"
 
-	"github.com/go-chassis/cari/config"
 	"github.com/go-chassis/cari/pkg/errsvc"
-	"github.com/go-chassis/openlog"
 
 	"github.com/apache/servicecomb-kie/pkg/model"
 )
@@ -36,14 +33,6 @@ type Skip struct {
 }
 
 func (s *Skip) Execute(ctx context.Context, kv *model.KVDoc) (*model.KVDoc, *errsvc.Error) {
-	inputKV := kv
-	kv, err := Create(ctx, kv)
-	if err == nil {
-		return kv, nil
-	}
-	if err.Code == config.ErrRecordAlreadyExists {
-		openlog.Info(fmt.Sprintf("skip overriding duplicate [key: %s, labels: %s]", inputKV.Key, inputKV.Labels))
-		return inputKV, config.NewError(config.ErrSkipDuplicateKV, "skip overriding duplicate kvs")
-	}
-	return inputKV, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }

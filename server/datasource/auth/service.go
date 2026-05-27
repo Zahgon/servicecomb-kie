@@ -26,61 +26,32 @@ import (
 const verbGet, verbCreate, verbUpdate, verbDelete = "get", "create", "update", "delete"
 
 func configPerms(verb string, labels map[string]string) *ResourceScope {
-	var labelsList []map[string]string
-	if labels != nil {
-		labelsList = append(labelsList, labels)
-	}
-	return &ResourceScope{
-		Type:   "config",
-		Verb:   verb,
-		Labels: labelsList,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func FilterKVList(ctx context.Context, kvs []*model.KVDoc) ([]*model.KVDoc, error) {
-	if !CheckEnable(ctx) {
-		return kvs, nil
-	}
-	// TODO error
-	labels, err := CheckPerm(ctx, configPerms(verbGet, nil))
-	if err != nil {
-		return []*model.KVDoc{}, nil
-	}
-	if len(labels) == 0 {
-		// allow all
-		return kvs, nil
-	}
-	return FilterKVs(kvs, labels), nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func CheckGetKV(ctx context.Context, kv *model.KVDoc) error {
-	if !CheckEnable(ctx) {
-		return nil
-	}
-	_, err := CheckPerm(ctx, configPerms(verbGet, kv.Labels))
-	return err
-}
+// TODO error
+
+// allow all
+
+func CheckGetKV(ctx context.Context, kv *model.KVDoc) error { _ = "STUB: not implemented"; return nil }
 
 func CheckCreateKV(ctx context.Context, kv *model.KVDoc) error {
-	if !CheckEnable(ctx) {
-		return nil
-	}
-	_, err := CheckPerm(ctx, configPerms(verbCreate, kv.Labels))
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func CheckDeleteKV(ctx context.Context, kv *model.KVDoc) error {
-	if !CheckEnable(ctx) {
-		return nil
-	}
-	_, err := CheckPerm(ctx, configPerms(verbDelete, kv.Labels))
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func CheckUpdateKV(ctx context.Context, kv *model.KVDoc) error {
-	if !CheckEnable(ctx) {
-		return nil
-	}
-	_, err := CheckPerm(ctx, configPerms(verbUpdate, kv.Labels))
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -19,13 +19,8 @@ package kv
 
 import (
 	"context"
-	"fmt"
 
-	"github.com/apache/servicecomb-kie/pkg/util"
-
-	"github.com/go-chassis/cari/config"
 	"github.com/go-chassis/cari/pkg/errsvc"
-	"github.com/go-chassis/openlog"
 
 	"github.com/apache/servicecomb-kie/pkg/model"
 )
@@ -38,31 +33,6 @@ type Force struct {
 }
 
 func (f *Force) Execute(ctx context.Context, kv *model.KVDoc) (*model.KVDoc, *errsvc.Error) {
-	input := kv
-	kv, err := Create(ctx, kv)
-	if err == nil {
-		return kv, nil
-	}
-	if err.Code != config.ErrRecordAlreadyExists {
-		return input, err
-	}
-
-	getKvsByOpts, getKvErr := GetByKey(ctx, input.Key, input.Project, input.Domain, input.Labels)
-	if getKvErr != nil {
-		openlog.Info(fmt.Sprintf("get record [key: %s, labels: %s] failed", input.Key, input.Labels))
-		return input, util.SvcErr(getKvErr)
-	}
-	kvReq := &model.UpdateKVRequest{
-		ID:      getKvsByOpts[0].ID,
-		Value:   input.Value,
-		Status:  input.Status,
-		Project: input.Project,
-		Domain:  input.Domain,
-	}
-	kv, updateErr := Update(ctx, kvReq)
-	if updateErr != nil {
-		openlog.Error(fmt.Sprintf("update record [key: %s, labels: %s] failed", input.Key, input.Labels))
-		return input, util.SvcErr(updateErr)
-	}
-	return kv, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

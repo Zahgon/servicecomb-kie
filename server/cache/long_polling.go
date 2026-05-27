@@ -19,25 +19,13 @@ type DBResult struct {
 	Rev int64
 }
 
-func CachedKV() *LongPollingCache {
-	return pollingCache
-}
+func CachedKV() *LongPollingCache { _ = "STUB: not implemented"; return nil }
 
 // Read reads the cached query result
 // only need to filter by labels if match pattern is exact
 func (c *LongPollingCache) Read(topic string) (int64, *model.KVResponse, *errsvc.Error) {
-	value, ok := c.m.Load(topic)
-	if !ok {
-		return 0, nil, nil
-	}
-	t := value.(*DBResult)
-	if t.Err != nil {
-		return 0, nil, t.Err
-	}
-	return t.Rev, t.KVs, nil
-
+	_ = "STUB: not implemented"
+	return 0, nil, nil
 }
 
-func (c *LongPollingCache) Write(topic string, r *DBResult) {
-	c.m.Store(topic, r)
-}
+func (c *LongPollingCache) Write(topic string, r *DBResult) { _ = "STUB: not implemented"; return }

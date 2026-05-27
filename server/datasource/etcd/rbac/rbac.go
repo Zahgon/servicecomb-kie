@@ -19,42 +19,23 @@ package rbac
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
 
 	crbac "github.com/go-chassis/cari/rbac"
-	"github.com/go-chassis/openlog"
-	"github.com/little-cui/etcdadpt"
 )
 
-func generateRBACRoleKey(name string) string {
-	return "/cse-sr/roles/" + name
-}
+func generateRBACRoleKey(name string) string { _ = "STUB: not implemented"; return "" }
 
-func generateRBACAccountKey(name string) string {
-	return "/cse-sr/accounts/" + name
-}
+func generateRBACAccountKey(name string) string { _ = "STUB: not implemented"; return "" }
 
 type Dao struct {
 }
 
 func (re *Dao) GetRole(ctx context.Context, name string) (*crbac.Role, error) {
-	kv, err := etcdadpt.Get(ctx, generateRBACRoleKey(name))
-	if err != nil {
-		return nil, err
-	}
-	if kv == nil {
-		return nil, errors.New("role not exist")
-	}
-	role := &crbac.Role{}
-	err = json.Unmarshal(kv.Value, role)
-	if err != nil {
-		openlog.Error("role info format invalid", openlog.WithErr(err))
-		return nil, err
-	}
-	return role, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (re *Dao) AccountExist(ctx context.Context, name string) (bool, error) {
-	return etcdadpt.Exist(ctx, generateRBACAccountKey(name))
+	_ = "STUB: not implemented"
+	return false, nil
 }
